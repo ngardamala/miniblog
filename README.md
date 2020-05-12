@@ -18,15 +18,19 @@ source env/bin/activate
 pip3 install -r requirements.txt
 ```
 - set environment variables:
-
-Following environment variables should be set before starting the app:
-- SECRET_KEY
-- DATABASE_URL
-- MAIL_SERVER
-- MAIL_PORT
-- MAIL_USE_TLS
-- MAIL_USERNAME
-- MAIL_PASSWORD
-- ELASTICSEARCH_URL
-
-Configuration is set wit
+export SECRET_KEY=""
+export DATABASE_URL=""
+export MAIL_SERVER=""
+export MAIL_PORT=""
+export MAIL_USE_TLS=""
+export MAIL_USERNAME=""
+export MAIL_PASSWORD=""
+export ELASTICSEARCH_URL=""
+- set config environment variable
+```
+export APP_SETTINGS="config.DevelopmentConfig"
+```
+- run with the following command
+```
+./manage.py runserver
+```
