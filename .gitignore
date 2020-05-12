@@ -129,8 +129,9 @@ dmypy.json
 .pyre/
 
 # Database
-.db
-.dat
+*.db
+*.dat
+migrations/
 
 # Editors
 .vscode/
