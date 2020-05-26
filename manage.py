@@ -4,6 +4,10 @@ from flask_script import Manager, Command, Option
 
 from app import create_app
 
+gunicorn_host = os.environ.get('GUNICORN_HOST') or '127.0.0.1'
+gunicorn_port = os.environ.get('GUNICORN_PORT') or 8000
+gunicorn_workers = os.environ.get('GUNICORN_WORKERS') or 4
+
 
 class GunicornServer(Command):
 
@@ -60,7 +64,7 @@ class GunicornServer(Command):
 app = create_app()
 app.config.from_object(os.environ['APP_SETTINGS'])
 manager = Manager(app)
-manager.add_command("gunicorn", GunicornServer())
+manager.add_command("gunicorn", GunicornServer(host=gunicorn_host, port=gunicorn_port, workers=gunicorn_workers))
 
 
 if __name__ == '__main__':
