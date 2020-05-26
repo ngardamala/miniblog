@@ -42,6 +42,5 @@ export APP_SETTINGS="config.DevelopmentConfig"
     - export GUNICORN_PORT=
     - export GUNICORN_WORKERS=
   - run ./manage.py gunicorn
-```
 
 ## Run in production
