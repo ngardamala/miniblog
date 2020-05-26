@@ -64,7 +64,9 @@ class GunicornServer(Command):
 app = create_app()
 app.config.from_object(os.environ['APP_SETTINGS'])
 manager = Manager(app)
-manager.add_command("gunicorn", GunicornServer(host=gunicorn_host, port=gunicorn_port, workers=gunicorn_workers))
+manager.add_command("gunicorn", GunicornServer(host=gunicorn_host,
+                                               port=gunicorn_port,
+                                               workers=gunicorn_workers))
 
 
 if __name__ == '__main__':

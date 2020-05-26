@@ -33,7 +33,7 @@ export APP_SETTINGS="config.DevelopmentConfig"
 ```
 - run with the following command
 ```
-./manage.py runserver
+miniblog/manage.py runserver
 ```
 
 - to run with gunicorn server:
@@ -41,6 +41,6 @@ export APP_SETTINGS="config.DevelopmentConfig"
     - export GUNICORN_HOST=""
     - export GUNICORN_PORT=
     - export GUNICORN_WORKERS=
-  - run ./manage.py gunicorn
+  - run miniblog/manage.py gunicorn
 
 ## Run in production
