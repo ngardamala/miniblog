@@ -3,7 +3,7 @@ from flask_script import Manager, Command, Option
 
 from app import create_app
 
-gunicorn_host = os.environ.get('GUNICORN_HOST') or '127.0.0.1'
+gunicorn_host = os.environ.get('GUNICORN_HOST') or '0.0.0.0'
 gunicorn_port = os.environ.get('GUNICORN_PORT') or 8000
 gunicorn_workers = os.environ.get('GUNICORN_WORKERS') or 4
 
@@ -12,7 +12,7 @@ class GunicornServer(Command):
 
     description = 'Run the app within Gunicorn'
 
-    def __init__(self, host='127.0.0.1', port=8000, workers=4):
+    def __init__(self, host='0.0.0.0', port=8000, workers=4):
         self.port = port
         self.host = host
         self.workers = workers
