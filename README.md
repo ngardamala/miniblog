@@ -29,7 +29,7 @@ pip3 install -r requirements.txt
   - export ELASTICSEARCH_URL=""
 - set config environment variable
 ```
-export APP_SETTINGS="config.DevelopmentConfig"
+export APP_SETTINGS="config.Config"
 ```
 - run with the following command
 ```
