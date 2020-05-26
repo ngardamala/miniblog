@@ -1,10 +1,11 @@
 from flask import current_app
+from flask import g
 from datetime import datetime
 from flask import Blueprint
 from app.database import db
 from flask_login import current_user, login_required
 from flask import render_template, flash, redirect, url_for, request
-from .forms import PostForm, EditProfileForm
+from .forms import PostForm, EditProfileForm, SearchForm
 from .models import Post
 from app.auth.models import User
 
@@ -16,6 +17,7 @@ def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
+        g.search_form = SearchForm()
 
 
 @module.route('/', methods=['GET', 'POST'])
@@ -119,6 +121,22 @@ def unfollow(id):
     db.session.commit()
     flash('You are not following {}.'.format(user.username))
     return redirect(url_for('main.user', id=id))
+
+
+@module.route('/search')
+@login_required
+def search():
+    if not g.search_form.validate():
+        return redirect(url_for('main.explore'))
+    page = request.args.get('page', 1, type=int)
+    posts, total = Post.search(g.search_form.q.data, page,
+                               current_app.config['POSTS_PER_PAGE'])
+    next_url = url_for('main.search', q=g.search_form.q.data, page=page + 1) \
+        if total > page * current_app.config['POSTS_PER_PAGE'] else None
+    prev_url = url_for('main.search', q=g.search_form.q.data, page=page - 1) \
+        if page > 1 else None
+    return render_template('main/search.html', title='Search', posts=posts,
+                           next_url=next_url, prev_url=prev_url)
 
 
 @module.errorhandler(404)
